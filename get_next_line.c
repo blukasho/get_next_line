@@ -6,42 +6,38 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:13:43 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/12 12:26:20 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/12 19:22:39 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char			read_line(int fd, int *val)
+char			*read_line(int fd, int *val, char *res)
 {
 	char		buf[BUFF_SIZE + 1];
+	char		*tmp;
 
-	val = read(fd, buf, BUFF_SIZE);
-	if (ft_strlen(buf))
-		return (buf)
-	return (NULL);
+	tmp = res;
+	*val = read(fd, buf, BUFF_SIZE);
+	if (!(res = ft_strjoin(res, buf))
+			return (NULL);
+	ft_strdel(&tmp);
+	return (res);
 }
 
 int				get_next_line(const int fd, char **line)
 {
-	static char	*res = "";
-	char		*tmp;
+	static char *buf;
 	int			val;
 
 	val = 1;
-	while (val > 0)
+	if (fd > 0 && line)
 	{
-		if (ft_strlen(tmp))
+		while (val > 0)
 		{
-			if (!(res = ft_strjoin(res, tmp)))
-				return (-1);
+			buf = read_line(fd, &val, buf);
 		}
-		else
-		{
-			if (!(tmp = read_line(fd, &val)))
-				return (-1);
-		}
-		ft_memdel(&tmp);
+		return (0);
 	}
-	return (0);
+	return (-1);
 }

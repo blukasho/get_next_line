@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 18:13:49 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/11 16:55:16 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/12 16:59:35 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,6 @@ int			main(int argc, char **argv)
 		}
 		else
 		{
-			if ((val = get_next_line(fd, &res)))
-			{
-				ft_putstr(res);
-				ft_putchar('\n');
-			}
-			if ((val = get_next_line(fd, &res)))
-			{
-				ft_putstr(res);
-				ft_putchar('\n');
-			}
 			if ((val = get_next_line(fd, &res)))
 			{
 				ft_putstr(res);
