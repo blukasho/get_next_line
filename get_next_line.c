@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:13:43 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/14 18:59:15 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/14 21:26:24 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,15 @@ char			*read_line(int fd, int *val, char *res)
 	return (res);
 }
 
-void			buf_rewrite(char **buf)
+char			*buf_rewrite(char **buf)
 {
 	char		*tmp;
+	char		*res;
 
 	tmp = ft_strchr(*buf, '\n');
-	ft_strcpy(*buf, ++tmp);
+	res = ft_strdup(++tmp);
+	ft_strdel(&*buf);
+	return (res);
 }
 
 int				get_next_line(const int fd, char **line)
@@ -54,8 +57,9 @@ int				get_next_line(const int fd, char **line)
 	if (buf[0] != '\0')
 	{
 		*line = ft_strndup(buf, ft_strlen_chr(buf, '\n'));
-		buf_rewrite(&buf);
+		buf = buf_rewrite(&buf);
 		return(1);
 	}
+	ft_strdel(&buf);
 	return (0);
 }
