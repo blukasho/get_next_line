@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:13:43 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/14 21:26:24 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/15 00:40:35 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,13 @@ char			*buf_rewrite(char **buf)
 	char		*tmp;
 	char		*res;
 
-	tmp = ft_strchr(*buf, '\n');
-	res = ft_strdup(++tmp);
+	if (!(tmp = ft_strchr(*buf, '\n')))
+	{
+		ft_strdel(&*buf);
+		return (NULL);
+	}
+	if (!(res = ft_strdup(++tmp)))
+		return (NULL);
 	ft_strdel(&*buf);
 	return (res);
 }
@@ -46,19 +51,17 @@ int				get_next_line(const int fd, char **line)
 	int			val;
 
 	val = 1;
-	if (!buf)
-		buf = ft_strnew(0);
-	if (fd > 0 && val)
+	if (0 > fd || !line || (!buf && !(buf = ft_strnew(0))))
+		return (-1);
+	if (fd > 0 && val && !*buf)
+		while (val > 0)
+			buf = read_line(fd, &val, buf);
+	if (*buf)
 	{
-		if (buf[0] == '\0')
-			while (val > 0)
-				buf = read_line(fd, &val, buf);
-	}
-	if (buf[0] != '\0')
-	{
-		*line = ft_strndup(buf, ft_strlen_chr(buf, '\n'));
+		if (!(*line = ft_strndup(buf, ft_strlen_chr(buf, '\n'))))
+			return (-1);
 		buf = buf_rewrite(&buf);
-		return(1);
+		return (1);
 	}
 	ft_strdel(&buf);
 	return (0);
