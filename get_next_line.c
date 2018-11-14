@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:13:43 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/14 15:36:41 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/14 18:59:15 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,19 @@ int				get_next_line(const int fd, char **line)
 	int			val;
 
 	val = 1;
-	if (fd > 0 && val && (buf = ft_strnew(0)))
+	if (!buf)
+		buf = ft_strnew(0);
+	if (fd > 0 && val)
 	{
 		if (buf[0] == '\0')
 			while (val > 0)
 				buf = read_line(fd, &val, buf);
-		if (buf[0] != '\0')
-		{
-
-			*line = ft_strndup(buf, ft_strlen_chr(buf, '\n'));
-			buf_rewrite(&buf);
-			printf("%s\n", buf);
-		}
+	}
+	if (buf[0] != '\0')
+	{
+		*line = ft_strndup(buf, ft_strlen_chr(buf, '\n'));
+		buf_rewrite(&buf);
+		return(1);
 	}
 	return (0);
 }

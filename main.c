@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 18:13:49 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/14 15:05:48 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/14 19:00:13 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,13 @@
 int			main(int argc, char **argv)
 {
 	int		fd;
-	int		val;
 	char	*res;
-	char	*res2;
 
-	val = 0;
 	fd = open(argv[1], O_RDONLY);
-	while (val < 3)
+	while (get_next_line(fd, &res))
 	{
-		get_next_line(fd, &res);
-//		ft_putstr(res);
-//		ft_putchar('\n');
-		++val;
+		ft_putstr(res);
+		ft_putchar('\n');
 	}
 	return (0);
 }
