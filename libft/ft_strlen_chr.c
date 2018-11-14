@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen_chr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 18:13:49 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/14 15:05:48 by blukasho         ###   ########.fr       */
+/*   Created: 2018/11/14 13:56:28 by blukasho          #+#    #+#             */
+/*   Updated: 2018/11/14 14:29:18 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+#include "libft.h"
 
-int			main(int argc, char **argv)
+size_t			ft_strlen_chr(const char *s, char c)
 {
-	int		fd;
-	int		val;
-	char	*res;
-	char	*res2;
+	const char	*tmp;
 
-	val = 0;
-	fd = open(argv[1], O_RDONLY);
-	while (val < 3)
-	{
-		get_next_line(fd, &res);
-//		ft_putstr(res);
-//		ft_putchar('\n');
-		++val;
-	}
-	return (0);
+	tmp = s;
+	if (s)
+		while (*s && *s != c)
+			++s;
+	return (s - tmp);
 }
