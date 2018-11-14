@@ -6,15 +6,12 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:13:43 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/15 00:40:35 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/15 00:52:23 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
-/*
- * del stdio.h
- */
+
 char			*read_line(int fd, int *val, char *res)
 {
 	char		buf[BUFF_SIZE + 1];
