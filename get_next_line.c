@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:13:43 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/15 00:52:23 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/15 19:14:37 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,18 @@ char			*buf_rewrite(char **buf)
 	char		*tmp;
 	char		*res;
 
-	if (!(tmp = ft_strchr(*buf, '\n')))
+	if ((tmp = ft_strchr(*buf, '\n')))
+	{
+		res = ft_strdup(++tmp);
+		ft_strdel(&*buf);
+		return (res);
+	}
+	else if ((res = ft_strdup(*buf)))
 	{
 		ft_strdel(&*buf);
-		return (NULL);
+		return (res);
 	}
-	if (!(res = ft_strdup(++tmp)))
-		return (NULL);
-	ft_strdel(&*buf);
-	return (res);
+	return (NULL);
 }
 
 int				get_next_line(const int fd, char **line)
@@ -48,16 +51,23 @@ int				get_next_line(const int fd, char **line)
 	int			val;
 
 	val = 1;
-	if (0 > fd || !line || (!buf && !(buf = ft_strnew(0))))
+	if (fd < 0 || !line || (!buf && !(buf = ft_strnew(0))))
 		return (-1);
-	if (fd > 0 && val && !*buf)
+	if (fd > 0 && val > 0 && !*buf)
 		while (val > 0)
 			buf = read_line(fd, &val, buf);
-	if (*buf)
+	if (val < 0)
+		return (-1);
+	if (buf[ft_strlen_chr(buf, '\n')] != '\0')
 	{
-		if (!(*line = ft_strndup(buf, ft_strlen_chr(buf, '\n'))))
-			return (-1);
+		*line = ft_strndup(buf, ft_strlen_chr(buf, '\n'));
 		buf = buf_rewrite(&buf);
+		return (1);
+	}
+	else if (buf[0] && buf[1])
+	{
+		*line = ft_strdup(buf);
+		buf[0] = '\0';
 		return (1);
 	}
 	ft_strdel(&buf);
