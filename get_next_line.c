@@ -6,70 +6,67 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:13:43 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/15 19:14:37 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/23 17:58:58 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+//del stdio.h
+#include <stdio.h>
 
-char			*read_line(int fd, int *val, char *res)
+char				*read_line(const int fd, char *res, size_t *len)
 {
-	char		buf[BUFF_SIZE + 1];
-	char		*tmp;
+	char			*buf;
+	char			*tmp;
 
 	tmp = res;
-	*val = read(fd, buf, BUFF_SIZE);
-	buf[*val] = '\0';
-	if (!(res = ft_strjoin(res, buf)))
-		return (NULL);
-	ft_strdel(&tmp);
-	return (res);
-}
-
-char			*buf_rewrite(char **buf)
-{
-	char		*tmp;
-	char		*res;
-
-	if ((tmp = ft_strchr(*buf, '\n')))
+	if ((buf = ft_strnew(BUFF_SIZE)))
 	{
-		res = ft_strdup(++tmp);
-		ft_strdel(&*buf);
-		return (res);
+		if ((*len = read(fd, buf, BUFF_SIZE)) > 0)
+			buf[*len] = '\0';
+			if((res = ft_strjoin(res, buf)))
+			{
+				ft_strdel(&tmp);
+				ft_strdel(&buf);
+				return (res);
+			}
+		ft_strdel(&buf);
 	}
-	else if ((res = ft_strdup(*buf)))
+	return (NULL);
+}	
+
+char				*check_lst(t_lst *lst, const int fd)
+{
+	t_lst			*tmp;
+
+	tmp = lst;
+	while (lst)
 	{
-		ft_strdel(&*buf);
-		return (res);
+		printf("fd %d\n", fd);
+		if (fd == lst->fd)
+		{
+			return (lst->str);
+		}
+		lst = lst->next;
 	}
 	return (NULL);
 }
 
-int				get_next_line(const int fd, char **line)
+int					get_next_line(const int fd, char **line)
 {
-	static char	*buf;
-	int			val;
+	size_t			len;
+	char			*str;
+	static	t_lst	*lst;
+	int				ld;
 
-	val = 1;
-	if (fd < 0 || !line || (!buf && !(buf = ft_strnew(0))))
-		return (-1);
-	if (fd > 0 && val > 0 && !*buf)
-		while (val > 0)
-			buf = read_line(fd, &val, buf);
-	if (val < 0)
-		return (-1);
-	if (buf[ft_strlen_chr(buf, '\n')] != '\0')
-	{
-		*line = ft_strndup(buf, ft_strlen_chr(buf, '\n'));
-		buf = buf_rewrite(&buf);
-		return (1);
-	}
-	else if (buf[0] && buf[1])
-	{
-		*line = ft_strdup(buf);
-		buf[0] = '\0';
-		return (1);
-	}
-	ft_strdel(&buf);
-	return (0);
+	lst = (t_lst *)malloc(sizeof(t_lst));
+	lst->str = ft_strnew(0);
+	lst->fd = fd;
+	lst->str = read_line(fd, lst->str, &len);
+	lst->next = NULL;
+		
+	printf("%s\n", check_lst(lst, fd));
+	ft_strdel(&lst->str);
+	printf("%s\n", check_lst(lst, fd));
+	return (len);
 }

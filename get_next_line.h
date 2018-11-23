@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:12:23 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/15 19:33:29 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/23 16:48:26 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 # define BUFF_SIZE 10
 # include "libft/includes/libft.h"
 
-int		get_next_line(const int fd, char **line);
+typedef struct		s_lst
+{
+	char			*str;
+	int				fd;
+	struct s_lst	*next;
+}					t_lst;
+
+int				get_next_line(const int fd, char **line);
 
 #endif
