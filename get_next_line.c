@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:13:43 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/26 15:58:48 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/26 17:57:23 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,12 @@ int					get_next_line(const int fd, char **line)
 		if (!*cur && (*cur = ft_strnew(0)))
 			while (len > 0)
 				cur = read_line(cur, &len, fd);
-		printf("%s", *cur);
 	}
+	if (*cur[0] == '\0')
+		return (0);
+	*line = ft_strndup(*cur, ft_strlen_chr(*cur, '\n'));
+	ft_memmove(*cur, ft_strchr(*cur, '\n') + 1, ft_strlen_chr(*cur, '\n'));	
+	printf("%s", *cur);
 	//перезапись строки
-	return (0);
+	return (1);
 }
