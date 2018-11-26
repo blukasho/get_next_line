@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:13:43 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/25 17:36:12 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/26 10:33:02 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,51 +14,34 @@
 //del stdio.h
 #include <stdio.h>
 
-char				**read_line(const int fd, char **res, size_t *len)
+char				**read_line(t_lst **cur, const int fd, size_t *len)
 {
 	char			*buf;
 	char			*tmp;
 
-	tmp = *res;
+	tmp = (*cur)->str;
 	if ((buf = ft_strnew(BUFF_SIZE)))
 	{
 		if ((*len = read(fd, buf, BUFF_SIZE)) > 0)
 			buf[*len] = '\0';
-			if((*res = ft_strjoin(*res, buf)))
+			if(((*cur)->str = ft_strjoin((*cur)->str, buf)))
 			{
 				ft_strdel(&tmp);
 				ft_strdel(&buf);
-				return (res);
+				return (NULL);
 			}
 		ft_strdel(&buf);
+		*len = -1;
 	}
 	return (NULL);
 }	
 
-t_lst				**cr_new_elem(t_lst **lst, const int fd)
+t_lst				**crt_lst_elem(t_lst **lst, const int fd)
 {
-	t_lst			*n_lst;
-	t_lst			*tmp;
-
-	tmp = *lst;
-	while ((*lst)->next)
-		*lst = (*lst)->next;
-	if ((n_lst = (t_lst *)malloc(sizeof(t_lst))))
-	{
-		if ((n_lst->str = ft_strnew(0)))
-		{
-			n_lst->fd = fd;
-			n_lst->next = NULL;
-			(*lst)->next = n_lst;
-			*lst = tmp;
-			return (lst);	
-		}
-		free(n_lst);
-	}
-	return(NULL);
+	
 }
 
-char				**check_lst(t_lst **lst, const int fd)
+t_lst				**get_lst_elem(t_lst **lst, const int fd)
 {
 	t_lst			*tmp;
 
@@ -70,39 +53,37 @@ char				**check_lst(t_lst **lst, const int fd)
 			{
 				(*lst)->fd = fd;
 				(*lst)->next = NULL;
-				return(&((*lst)->str));
+				return (lst);
 			}
-			free(&*lst);
-			return (NULL);
+			free((*lst)->str);
 		}
+		return (NULL);
 	}
+//	tmp = *lst;
 	while (*lst)
 	{
 		if ((*lst)->fd == fd)
-			return (&((*lst)->str));
+			return (&*lst);
 		*lst = (*lst)->next;
 	}
-	return (NULL);
 }
 
 int					get_next_line(const int fd, char **line)
 {
 	size_t			len;
-	char			**str;
 	static	t_lst	*lst;
-	int				ld;
-	char			**tmp;
+	t_lst			**cur;
 
-	printf("lst = %d\n", lst);
-	if (fd < 0 || (!lst && !check_lst(&lst, fd)))
+	len = 1;
+	if (fd < 0 || (!lst && !get_lst_elem(&lst, fd)))
 		return (-1);
-	printf("lst = %d\n", lst);
-//	cr_new_elem(&lst, fd);
-//	str = read_line(fd, str, &len);
-
-//	tmp = check_lst(&lst, fd);
-//	printf("%s\n", *tmp);
-	free(lst->str);
-	free(&*lst);
+	if ((cur = get_lst_elem(&lst, fd)))//проверить не адрес а указатель
+	{
+		while (len > 0)
+			read_line(cur, fd, &len);
+		if (len == -1)
+			return (-1);
+	}
+	//перезапись строки
 	return (0);
 }
