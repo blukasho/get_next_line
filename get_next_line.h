@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:12:23 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/27 13:03:48 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/27 21:49:00 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ typedef struct		s_lst
 	struct s_lst	*next;
 }					t_lst;
 
-int				get_next_line(const int fd, char **line);
+int					get_next_line(const int fd, char **line);
 
 #endif
