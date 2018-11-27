@@ -6,13 +6,13 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:12:23 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/23 16:48:26 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/27 10:35:33 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 10
+# define BUFF_SIZE 10000000000
 # include "libft/includes/libft.h"
 
 typedef struct		s_lst

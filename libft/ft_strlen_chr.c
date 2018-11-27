@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 13:56:28 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/26 17:46:26 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/27 10:14:36 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,8 @@ size_t			ft_strlen_chr(const char *s, char c)
 	if (s)
 		while (*s && *s != c)
 			++s;
-	return (s - tmp);
+	if (*s == c)
+		return (s - tmp);
+	else
+		return (0);
 }

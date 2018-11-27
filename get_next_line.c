@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:13:43 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/26 17:57:23 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/27 10:28:54 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,26 @@ char				**get_str(t_lst **lst, const int fd)
 	return (crt_lst_elem(lst, fd));
 }
 
+void				cpy_line(char **cur, char **line)
+{
+	char			*tmp;
+	size_t			nl;
+
+	tmp = *cur;
+	nl = ft_strlen_chr(*cur, '\n');
+	if (nl == 0)
+	{
+		*line = ft_strdup(*cur);
+		*cur = ft_strnew(0);
+		free(tmp);
+	}
+	else
+	{
+		*line = ft_strndup(*cur, nl);
+		*cur = ft_strdup(*cur + nl + 1);
+		free(tmp);		
+	}
+}
 int					get_next_line(const int fd, char **line)
 {
 	size_t			len;
@@ -94,9 +114,6 @@ int					get_next_line(const int fd, char **line)
 	}
 	if (*cur[0] == '\0')
 		return (0);
-	*line = ft_strndup(*cur, ft_strlen_chr(*cur, '\n'));
-	ft_memmove(*cur, ft_strchr(*cur, '\n') + 1, ft_strlen_chr(*cur, '\n'));	
-	printf("%s", *cur);
-	//перезапись строки
+	cpy_line(cur, line);
 	return (1);
 }

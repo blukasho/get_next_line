@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 18:13:49 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/26 17:51:46 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/27 10:34:57 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ int			main(int argc, char **argv)
 
 	fd = open(argv[1], O_RDONLY);
 	fd2 = open(argv[2], O_RDONLY);
-	val = get_next_line(fd, &res);
-	//printf("val = %d\n", val);
-	val = get_next_line(fd2, &res);
-	//printf("val = %d\n", val);
+	while (get_next_line(fd, &res) > 0)
+	{
+		printf("%s\n", res);
+		free(res);
+	}
+	printf("val = %d\n", val);
 	return (0);
 }
