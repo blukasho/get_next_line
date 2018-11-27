@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:13:43 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/27 10:28:54 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/27 13:38:27 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,11 @@ int					get_next_line(const int fd, char **line)
 				cur = read_line(cur, &len, fd);
 	}
 	if (*cur[0] == '\0')
+	{
+		free(*cur);
+//		free(lst);
 		return (0);
+	}
 	cpy_line(cur, line);
 	return (1);
 }

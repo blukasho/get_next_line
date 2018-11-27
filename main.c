@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 18:13:49 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/27 10:34:57 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/27 13:36:04 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ int			main(int argc, char **argv)
 		printf("%s\n", res);
 		free(res);
 	}
-	printf("val = %d\n", val);
+	while (get_next_line(fd2, &res) > 0)
+	{
+		printf("%s\n", res);
+		free(res);
+	}
 	return (0);
 }
