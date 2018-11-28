@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:13:43 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/28 10:33:27 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/28 11:16:36 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int					get_next_line(const int fd, char **line)
 		ft_strdel(cur);
 		return (-1);
 	}
-	if (*cur[0] == '\0' && (*line = ft_strnew(0)))
+	if (*cur[0] == '\0' && !(*line = NULL))
 	{
 		ft_strdel(cur);
 		return (0);
