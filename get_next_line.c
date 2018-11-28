@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:13:43 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/27 22:29:00 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/28 10:13:57 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,9 @@ int					get_next_line(const int fd, char **line)
 	char			**cur;
 	t_lst			*tmp;
 
+	if (fd == 42)
+		printf("fd = %d\n", fd);
+
 	len = 1;
 	if (fd < 0 || BUFF_SIZE <= 0 || (!lst && !get_str(&lst, fd)))
 		return (-1);
@@ -118,7 +121,10 @@ int					get_next_line(const int fd, char **line)
 				cur = read_line(cur, &len, fd);
 		}
 		if (len == -1)
+		{
+			ft_strdel(cur);
 			return (-1);
+		}
 	}
 	if (*cur[0] == '\0')
 	{
