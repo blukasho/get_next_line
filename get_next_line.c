@@ -6,12 +6,11 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:13:43 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/28 11:16:36 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/28 13:10:22 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 char				**read_line(char **cur, int *len, const int fd)
 {
@@ -81,12 +80,9 @@ void				cpy_line(char **cur, char **line)
 {
 	char			*tmp;
 	size_t			nl;
-	size_t			ln;
 
 	tmp = *cur;
-	ln = ft_strlen(*cur);
-	nl = ft_strlen_chr(*cur, '\n');
-	if (ln == nl)
+	if (ft_strlen(*cur) == (nl = ft_strlen_chr(*cur, '\n')))
 	{
 		*line = ft_strdup(*cur);
 		*cur = ft_strnew(0);
@@ -113,7 +109,7 @@ int					get_next_line(const int fd, char **line)
 	if (!*cur && (*cur = ft_strnew(0)))
 		while (len > 0)
 			cur = read_line(cur, &len, fd);
-	if (len < 0 )
+	if (len < 0)
 	{
 		ft_strdel(cur);
 		return (-1);
