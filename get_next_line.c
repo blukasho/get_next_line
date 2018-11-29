@@ -6,7 +6,7 @@
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:13:43 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/29 12:57:53 by blukasho         ###   ########.fr       */
+/*   Updated: 2018/11/29 13:34:36 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 char				**read_line(char **cur, int *len, const int fd)
 {
-	char			buf[BUFF_SIZE + 1];
+	char			*buf;
 	char			*tmp;
 
-//	if ((buf = ft_strnew(BUFF_SIZE)))
-//	{
+	if ((buf = ft_strnew(BUFF_SIZE)))
+	{
 		if ((*len = read(fd, buf, BUFF_SIZE)) > 0)
 		{
 			tmp = *cur;
@@ -26,13 +26,13 @@ char				**read_line(char **cur, int *len, const int fd)
 			if ((*cur = ft_strjoin(*cur, buf)))
 			{
 				ft_strdel(&tmp);
-//				ft_strdel(&buf);
+				ft_strdel(&buf);
 				return (cur);
 			}
 		}
-//		free(buf);
+		free(buf);
 		return (cur);
-//	}
+	}
 	return (NULL);
 }
 
