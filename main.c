@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blukasho <bodik1w@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 16:12:23 by blukasho          #+#    #+#             */
-/*   Updated: 2018/11/29 12:53:55 by blukasho         ###   ########.fr       */
+/*   Created: 2018/11/29 12:38:41 by blukasho          #+#    #+#             */
+/*   Updated: 2018/11/29 12:43:20 by blukasho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 1
-# include "libft/includes/libft.h"
+#include "get_next_line.h"
+#include <stdio.h>
+#include <fcntl.h>
 
-typedef struct		s_lst
+int			main(int argc, char **argv)
 {
-	char			*str;
-	int				fd;
-	struct s_lst	*next;
-}					t_lst;
+	int		fd;
+	char	*res;
 
-int					get_next_line(const int fd, char **line);
+	if (argc)
+	{
+		fd = open(argv[1], O_RDONLY);
 
-#endif
+		while (get_next_line(fd, &res) > 0)
+			printf("%s\n", res);
+	}
+	return (0);
+}
